@@ -1,0 +1,15 @@
+{% extends "submissions/header.html" %}
+{% block content %}
+    {% for sub in submissions %}
+        <article class="media content-section">
+          <div class="media-body">
+            <div class="article-metadata">
+              <a class="mr-2" href="#">{{ sub.submitter }}</a>
+              <small class="text-muted">{{ sub.submission_date|date:"F d, Y" }}</small>
+            </div>
+            <h2><a class="article-title" href="{% url 'submission-detail' sub.id %}">{{ sub.title }}</a></h2>
+            <p class="article-content">{{ sub.description_text }}</p>
+          </div>
+        </article>
+    {% endfor %}
+{% endblock content %}

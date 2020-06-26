@@ -1,0 +1,86 @@
+{% extends "submissions/header.html" %}
+{% load crispy_forms_tags %}
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <div id="submissions_yearly_count"></div>
+      <script src="https://code.highcharts.com/highcharts.src.js"></script>
+      <script>
+        Highcharts.chart('submissions_yearly_count', {
+            chart: {
+                type: 'column'
+            },
+            title: {
+                text: 'Submissions by Year'
+            },
+            xAxis: {
+                categories: [
+                  {% for submission in submissions_count_chart %}{{ submission.year }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                ]
+            },
+            yAxis: {
+                title: {
+                        text: 'Number of Submissions'
+                }
+            },
+            series: [{
+                name: 'Submissions',
+                data: [
+                  {% for submission in submissions_count_chart %}{{ submission.submissions_count }}{% if not forloop.last %}, {% endif %}{% endfor %}
+                ],
+            }]
+        });
+        </script>
+  </div>
+</article>
+<article class="media content-section">
+  <div class="media-body">
+    <div id="submissions_by_product"></div>
+      <script src="https://code.highcharts.com/highcharts.src.js"></script>
+      <script>
+        Highcharts.chart('submissions_by_product', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Submissions by Product'
+            },
+            series: [{
+                name: 'Submissions',
+                data: [
+                  {% for product in product_distribution_chart %}
+                    {name: '{{ product.name }}', y: {{ product.count }} }
+                    {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                ],
+            }]
+        });
+        </script>
+  </div>
+</article>
+<article class="media content-section">
+  <div class="media-body">
+    <div id="submissions_by_vendor"></div>
+      <script src="https://code.highcharts.com/highcharts.src.js"></script>
+      <script>
+        Highcharts.chart('submissions_by_vendor', {
+            chart: {
+                type: 'pie'
+            },
+            title: {
+                text: 'Submissions by Vendor'
+            },
+            series: [{
+                name: 'Submissions',
+                data: [
+                  {% for vendor in vendor_distribution_chart %}
+                    {name: '{{ vendor.name }}', y: {{ vendor.count }} }
+                    {% if not forloop.last %}, {% endif %}
+                  {% endfor %}
+                ],
+            }]
+        });
+        </script>
+  </div>
+</article>
+{% endblock content %}

@@ -1,0 +1,17 @@
+{% extends "submissions/header.html" %}
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <a class="mr-2" href="#">{{ object.submitter }}</a>
+      <small class="text-muted">{{ object.submission_date|date:"F d, Y" }}</small>
+    </div>
+    <h2 class="article-title">{{ object.title }}</h2>
+      <p class="article-content">Product: {{ object.product_name }}</p>
+      <p class="article-content">Vendor: {{ object.vendor_name }}</p>
+    <p class="article-content">Description: {{ object.description_text }}</p>
+      <p class="article-content"> Classification: {{ object.classification }}</p>
+
+  </div>
+</article>
+{% endblock content %}
